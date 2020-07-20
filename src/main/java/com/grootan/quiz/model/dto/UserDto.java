@@ -1,11 +1,12 @@
-package com.grootan.quiz.models;
+package com.grootan.quiz.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.grootan.quiz.model.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-public class User {
+public class UserDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String id;
 
@@ -22,23 +23,22 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    public User(String id, String firstName, String lastName, String email, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+    public User toUser() {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setPassword(password);
+        return user;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public static UserDto fromUser(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setFirstName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
+        userDto.setEmail(user.getEmail());
+        return userDto;
     }
 
     public String getId() {
@@ -80,5 +80,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

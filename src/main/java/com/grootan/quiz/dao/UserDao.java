@@ -1,14 +1,13 @@
 package com.grootan.quiz.dao;
 
-import com.grootan.quiz.models.User;
+import com.grootan.quiz.model.User;
+import com.grootan.quiz.util.Util;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class UserDao {
     public User createUser(User user) {
-        user.setId(UUID.randomUUID().toString());
+        user.setId(Util.uuid());
         MockDatabase.users.add(user);
         return user;
     }

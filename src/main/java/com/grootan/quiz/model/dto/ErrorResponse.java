@@ -1,4 +1,4 @@
-package com.grootan.quiz.models.dto;
+package com.grootan.quiz.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

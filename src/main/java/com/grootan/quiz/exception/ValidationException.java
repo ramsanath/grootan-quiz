@@ -1,4 +1,4 @@
-package com.grootan.quiz.exceptions;
+package com.grootan.quiz.exception;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 
