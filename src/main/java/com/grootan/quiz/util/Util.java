@@ -8,7 +8,7 @@ public class Util {
     }
 
     public static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
+        return (int) ((Math.random() * ((max + 1) - min)) + min);
     }
 
     public static <T> List<T> pickRandomElements(List<T> list, int size) {

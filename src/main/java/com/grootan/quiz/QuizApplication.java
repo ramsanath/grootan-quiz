@@ -1,5 +1,6 @@
 package com.grootan.quiz;
 
+import com.grootan.quiz.util.Util;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

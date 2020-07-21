@@ -33,9 +33,10 @@ public class MockDatabase {
                 operationName = "difference between";
                 answer = num1 - num2;
             }
+            String answerValue = String.valueOf(answer);
             question.setQuestion(String.format("What is the %s %d and %d?", operationName, num1, num2));
-            question.getOptions().set(Util.getRandomNumber(0, 3), String.valueOf(answer));
-
+            question.getOptions().set(Util.getRandomNumber(0, 3), answerValue);
+            question.setAnswer(answerValue);
             questions.add(question);
         }
     }

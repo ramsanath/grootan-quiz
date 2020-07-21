@@ -32,7 +32,6 @@ public class JwtFilter extends BasicAuthenticationFilter {
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
         UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(req);
-        System.out.println("1");
         if (authenticationToken == null) {
             chain.doFilter(req, res);
             return;
@@ -44,7 +43,6 @@ public class JwtFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest req) {
         try {
             Claims claims = getJwtToken(req);
-            System.out.println(claims.getSubject());
             return new UsernamePasswordAuthenticationToken(
                     claims.getSubject(),
                     null,
