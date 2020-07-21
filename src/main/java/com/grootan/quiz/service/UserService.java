@@ -9,15 +9,19 @@ import com.grootan.quiz.model.dto.UserDto;
 import com.grootan.quiz.util.Util;
 import com.grootan.quiz.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService  {
     private static final String VERIFY_ACCOUNT_EMAIL_TEMPLATE_PATH = "templates/verify_account_template.html";
 
     @Autowired
@@ -69,5 +73,14 @@ public class UserService {
         url += ("u=" + user.getId() + "&");
         url += ("c=" + user.getAccountVerificationCode());
         return url;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.findUserByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 }

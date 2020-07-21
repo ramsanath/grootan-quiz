@@ -1,8 +1,7 @@
 package com.grootan.quiz.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.grootan.quiz.exception.AuthenticationException;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +23,16 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    public Claims parseJwt(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
+    public Claims parseJwt(String token) throws AuthenticationException {
+        try {
+            return Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            throw new AuthenticationException("Token expired");
+        } catch (Exception e) {
+            throw new AuthenticationException("Invalid token");
+        }
     }
 }

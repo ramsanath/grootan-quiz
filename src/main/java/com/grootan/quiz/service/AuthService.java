@@ -4,6 +4,7 @@ import com.grootan.quiz.dao.UserDao;
 import com.grootan.quiz.exception.AuthenticationException;
 import com.grootan.quiz.model.User;
 import com.grootan.quiz.util.JwtTokenUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class AuthService {
             throw new AuthenticationException("Wrong credentials");
         }
         return jwtTokenUtil.createJwt(user.getId());
+    }
+
+    public boolean verifyJwtClaim(Claims claims) {
+        User user = userDao.findUserById(claims.getSubject());
+        return user != null;
     }
 }

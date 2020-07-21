@@ -20,4 +20,13 @@ public class UserDao {
         }
         return null;
     }
+
+    public User findUserById(String id) {
+        for (User u : MockDatabase.users) {
+            if (u.getId().equals(id)) {
+                return u;
+            }
+        }
+        return null;
+    }
 }
